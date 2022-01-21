@@ -1,12 +1,12 @@
 /*
  * *****************************************************************************************
  *
- * 		Copyright (C) 2014-2021 Gowin Semiconductor Technology Co.,Ltd.
- * 		
+ *         Copyright (C) 2014-2021 Gowin Semiconductor Technology Co.,Ltd.
+ * 
  * @file        gw1ns4c_spi.h
  * @author      Embedded Development Team
  * @version     V1.x.x
- * @date        2021-01-01 09:00:00
+ * @date        2021-07-01 09:00:00
  * @brief       This file contains all the functions prototypes for the SPI firmware library.
  ******************************************************************************************
  */
@@ -37,17 +37,10 @@
 /* SPI InitTypeDef */
 typedef struct
 {
-  FunctionalState DIRECTION;  /* @arg: ENABLE MSB first transmission;
-                                 @arg: DISABLE LSB first transmission;
-                               */
-  FunctionalState PHASE;      /* @arg: ENABLE Posedge transmit data;
-                                 @arg: DISABLE Negedge transmit data;
-                               */
-  FunctionalState POLARITY;   /* @arg: ENABLE Initial polarity to 1
-                                 @arg: DISABLE Initial polarity to 0;
-                               */
-  uint32_t CLKSEL;            /* Clock Selection */
-  
+  uint8_t  DIRECTION;  // 0: msb first; 1: lsb first
+  uint8_t  PHASE;      // 0: sample at posedge edge; 1: sample at negedge.
+  uint8_t  POLARITY;   // 0: idle sclk low; 1: idle sclk high
+  uint8_t  CLKSEL;     // clk div = (clksel + 1) * 2
 }SPI_InitTypeDef;
 
 /**
@@ -64,6 +57,15 @@ typedef struct
 #define CLKSEL_CLK_DIV_6   ((uint32_t) 0x00000003)  //CLK/6
 #define CLKSEL_CLK_DIV_8   ((uint32_t) 0x00000004)  //CLK/8
 
+#define SHIFT_DIR_MSB_FIRST      (0)
+#define SHIFT_DIR_LSB_FIRST      (1)
+
+#define SPI_CPOL_LO              (0) 
+#define SPI_CPOL_HI              (1)
+
+#define SPI_CPHA_POSEDGE         (0)
+#define SPI_CPHA_NEGEDGE         (1)
+
 /* Register Bit Position */
 #define SPI_CR_DIRECTION_Pos   0   /* CTRL register DIRECTION bit position */
 #define SPI_CR_PHASE_Pos       1   /* CTRL register PHASE bit position     */
@@ -77,6 +79,9 @@ typedef struct
 
 #define SPI_CR_CLKSEL_Pos     ((uint32_t) 0x00000003)    /* CTRL register CLKSEL Position */
 #define SPI_CR_CLKSEL_Mask    ((uint32_t) 0x00000003)    /* CTRL register CLKSEL mask     */
+
+#define SELECT_SPI            {SPI->SSMASK = 1;}
+#define DESELECT_SPI          {SPI->SSMASK = 0;}
 
 /**
   * @}
@@ -190,6 +195,11 @@ extern void SPI_ClrRoeStatus(void);
   * @brief Clears error status
   */
 extern void SPI_ClrErrStatus(void);
+
+/**
+  * @brief Reads and Writes Byte Data
+  */
+extern uint8_t SPI_ReadWriteByte(uint8_t cmd);
 
 /**
   * @brief Writes Data

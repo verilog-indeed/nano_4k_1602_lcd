@@ -44,19 +44,19 @@ all: cm3_1602_lcd.elf secondary-outputs
 # Tool invocations
 cm3_1602_lcd.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: GNU ARM Cross C Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "C:\Users\Dorian\Documents\MCU_Projects\cm3_1602_lcd\gw1ns4c_flash.ld" -Xlinker --gc-sections -Wl,-Map,"cm3_1602_lcd.map" -o "cm3_1602_lcd.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: Cross ARM C Linker'
+	arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -O3 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\gw1ns4c_flash.ld" -Xlinker --gc-sections -Wl,-Map,"cm3_1602_lcd.map" -o "cm3_1602_lcd.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 cm3_1602_lcd.bin: cm3_1602_lcd.elf
-	@echo 'Invoking: GNU ARM Cross Create Flash Image'
+	@echo 'Invoking: Cross ARM GNU Create Flash Image'
 	arm-none-eabi-objcopy -O binary "cm3_1602_lcd.elf"  "cm3_1602_lcd.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 cm3_1602_lcd.siz: cm3_1602_lcd.elf
-	@echo 'Invoking: GNU ARM Cross Print Size'
+	@echo 'Invoking: Cross ARM GNU Print Size'
 	arm-none-eabi-size --format=berkeley "cm3_1602_lcd.elf"
 	@echo 'Finished building: $@'
 	@echo ' '

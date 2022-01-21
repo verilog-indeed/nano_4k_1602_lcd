@@ -1,12 +1,12 @@
 /*
  * *****************************************************************************************
  *
- * 		Copyright (C) 2014-2021 Gowin Semiconductor Technology Co.,Ltd.
- * 		
+ *         Copyright (C) 2014-2021 Gowin Semiconductor Technology Co.,Ltd.
+ * 
  * @file        gw1ns4c_spi.c
  * @author      Embedded Development Team
  * @version     V1.x.x
- * @date        2021-01-01 09:00:00
+ * @date        2021-07-01 09:00:00
  * @brief       This file contains all the functions prototypes for the SPI firmware library.
  ******************************************************************************************
  */
@@ -72,19 +72,19 @@ void SPI_Init(SPI_InitTypeDef* SPI_InitStruct)
   SPI->STATUS = 0;
 
   /* Set Direction */
-  if(SPI_InitStruct->DIRECTION == ENABLE)
+  if(SPI_InitStruct->DIRECTION == 1)
   {
     new_ctrl |= SPI_CR_DIRECTION;
   }
 
   /*Set Phase*/
-  if(SPI_InitStruct->PHASE == ENABLE)
+  if(SPI_InitStruct->PHASE == 1)
   {
     new_ctrl |= SPI_CR_PHASE;
   }
 
   /*Set Polarity*/
-  if(SPI_InitStruct->POLARITY == ENABLE)
+  if(SPI_InitStruct->POLARITY == 1)
   {
     new_ctrl |= SPI_CR_POLARITY;
   }
@@ -144,6 +144,7 @@ void SPI_ClrPhase(void)
 {
   SPI->CTRL &= ~SPI_CR_PHASE;
 }
+
 /**
   * @param none
   * @return uint32_t
@@ -163,6 +164,7 @@ void SPI_SetPolarity(void)
 {
   SPI->CTRL |= SPI_CR_POLARITY;
 }
+
 /**
   * @param none
   * @return none
@@ -241,7 +243,7 @@ FlagStatus SPI_GetTmtStatus(void)
   */
 FlagStatus SPI_GetTrdyStatus(void)
 {
-  return (FlagStatus)((SPI->STATUS&SPI_STATUS_TRDY)==SPI_STATUS_TRDY);
+  return (FlagStatus)((SPI->STATUS & SPI_STATUS_TRDY) == SPI_STATUS_TRDY);
 }
 
 /**
@@ -263,6 +265,7 @@ FlagStatus SPI_GetErrStatus(void)
 {
   return (FlagStatus)((SPI->STATUS&SPI_STATUS_ERR)==SPI_STATUS_ERR);
 }
+
 /**
   * @param none
   * @return none
@@ -294,13 +297,30 @@ void SPI_ClrErrStatus(void)
 }
 
 /**
-  * @param uint8_t
+  * @param uint8_t cmd
+  * @return uint8_t
+  * @brief Reads and writes byte data
+  */
+uint8_t SPI_ReadWriteByte(uint8_t cmd)
+{
+  uint32_t master_rx_data;
+
+  while (!(SPI->STATUS & (1UL << 5)));
+  SPI->WDATA = cmd;
+  while (!(SPI->STATUS & (1UL << 6)));
+  master_rx_data = SPI->RDATA;
+
+  return master_rx_data & 0xff;
+}
+
+/**
+  * @param uint8_t data
   * @return none
   * @brief Writes Data
   */
 void SPI_WriteData(uint8_t data)
 {
-  SPI->WDATA = data; 
+  SPI_ReadWriteByte(data);
 }
 
 /**
@@ -310,7 +330,7 @@ void SPI_WriteData(uint8_t data)
   */
 uint8_t SPI_ReadData(void)
 {
-  return (uint8_t)(SPI->RDATA); 
+  return (SPI_ReadWriteByte(0x00));
 }
 
 /**
@@ -320,7 +340,7 @@ uint8_t SPI_ReadData(void)
   */
 void SPI_Select_Slave(uint32_t Slave_address)
 {
-	SPI->SSMASK = Slave_address;
+  SPI->SSMASK = Slave_address;
 }
 
 /**

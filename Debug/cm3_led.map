@@ -1104,7 +1104,7 @@ LOAD c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../
 LOAD c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libnosys.a
 END GROUP
 
-.text           0x00000000      0x864
+.text           0x00000000      0x454
  *(.isr_vector)
  .isr_vector    0x00000000       0xc0 ./STARTUP/startup_gw1ns4c.o
                 0x00000000                __isr_vector
@@ -1220,74 +1220,48 @@ END GROUP
  .text.PORT0_15_Handler
                 0x00000150        0x4 ./USER/gw1ns4c_it.o
                 0x00000150                PORT0_15_Handler
- .text.LCD_Reset
-                0x00000154       0xcc ./USER/main.o
-                0x00000154                LCD_Reset
- .text.LCD_FunctionSet
-                0x00000220       0x7c ./USER/main.o
-                0x00000220                LCD_FunctionSet
- .text.LCD_Clear
-                0x0000029c       0x8c ./USER/main.o
-                0x0000029c                LCD_Clear
- .text.LCD_DisplayOn
-                0x00000328       0x8c ./USER/main.o
-                0x00000328                LCD_DisplayOn
- .text.LCD_EntryModeSet
-                0x000003b4       0x8c ./USER/main.o
-                0x000003b4                LCD_EntryModeSet
- .text.LCDInit  0x00000440       0x1c ./USER/main.o
-                0x00000440                LCDInit
- .text.LCD_SetDDRAM_Address
-                0x0000045c       0x8c ./USER/main.o
-                0x0000045c                LCD_SetDDRAM_Address
- .text.LCD_Write
-                0x000004e8       0x8c ./USER/main.o
-                0x000004e8                LCD_Write
- .text.LCD_PrintTest
-                0x00000574       0x20 ./USER/main.o
-                0x00000574                LCD_PrintTest
  .text.GPIOInit
-                0x00000594       0x34 ./USER/main.o
-                0x00000594                GPIOInit
+                0x00000154       0x28 ./USER/main.o
+                0x00000154                GPIOInit
  .text.startup.main
-                0x000005c8       0x14 ./USER/main.o
-                0x000005c8                main
+                0x0000017c       0x50 ./USER/main.o
+                0x0000017c                main
  .text.SystemInit
-                0x000005dc       0x2c ./SYSTEM/system_gw1ns4c.o
-                0x000005dc                SystemInit
- .text          0x00000608       0x98 ./STARTUP/startup_gw1ns4c.o
-                0x00000608                Reset_Handler
-                0x0000066e                PORT0_COMB_Handler
-                0x00000678                UARTOVF_Handler
-                0x0000067e                Spare15_Handler
+                0x000001cc       0x2c ./SYSTEM/system_gw1ns4c.o
+                0x000001cc                SystemInit
+ .text          0x000001f8       0x98 ./STARTUP/startup_gw1ns4c.o
+                0x000001f8                Reset_Handler
+                0x0000025e                PORT0_COMB_Handler
+                0x00000268                UARTOVF_Handler
+                0x0000026e                Spare15_Handler
  .text.GPIO_Init
-                0x000006a0       0xc8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
-                0x000006a0                GPIO_Init
+                0x00000290       0xc8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+                0x00000290                GPIO_Init
  .text.GPIO_SetBit
-                0x00000768        0x8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
-                0x00000768                GPIO_SetBit
+                0x00000358        0x8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+                0x00000358                GPIO_SetBit
  .text.GPIO_ResetBit
-                0x00000770        0xc ./PERIPHERAL/Sources/gw1ns4c_gpio.o
-                0x00000770                GPIO_ResetBit
- .text.exit     0x0000077c       0x20 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-exit.o)
-                0x0000077c                exit
+                0x00000360        0xc ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+                0x00000360                GPIO_ResetBit
+ .text.exit     0x0000036c       0x20 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-exit.o)
+                0x0000036c                exit
  .text.__call_exitprocs
-                0x0000079c       0xb0 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-__call_atexit.o)
-                0x0000079c                __call_exitprocs
+                0x0000038c       0xb0 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-__call_atexit.o)
+                0x0000038c                __call_exitprocs
  .text.__retarget_lock_acquire_recursive
-                0x0000084c        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-lock.o)
-                0x0000084c                __retarget_lock_acquire_recursive
+                0x0000043c        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-lock.o)
+                0x0000043c                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x00000850        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-lock.o)
-                0x00000850                __retarget_lock_release_recursive
- .text._exit    0x00000854        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libnosys.a(_exit.o)
-                0x00000854                _exit
+                0x00000440        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-lock.o)
+                0x00000440                __retarget_lock_release_recursive
+ .text._exit    0x00000444        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libnosys.a(_exit.o)
+                0x00000444                _exit
  *(.init)
- .init          0x00000858        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7-m/nofp/crti.o
-                0x00000858                _init
+ .init          0x00000448        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7-m/nofp/crti.o
+                0x00000448                _init
  *(.fini)
- .fini          0x0000085c        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7-m/nofp/crti.o
-                0x0000085c                _fini
+ .fini          0x0000044c        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/thumb/v7-m/nofp/crti.o
+                0x0000044c                _fini
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -1300,38 +1274,38 @@ END GROUP
  *(.dtors)
  *(.rodata*)
  .rodata._global_impure_ptr
-                0x00000860        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-impure.o)
-                0x00000860                _global_impure_ptr
+                0x00000450        0x4 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-impure.o)
+                0x00000450                _global_impure_ptr
  *(.eh_frame*)
 
-.glue_7         0x00000864        0x0
- .glue_7        0x00000864        0x0 linker stubs
+.glue_7         0x00000454        0x0
+ .glue_7        0x00000454        0x0 linker stubs
 
-.glue_7t        0x00000864        0x0
- .glue_7t       0x00000864        0x0 linker stubs
+.glue_7t        0x00000454        0x0
+ .glue_7t       0x00000454        0x0 linker stubs
 
-.vfp11_veneer   0x00000864        0x0
- .vfp11_veneer  0x00000864        0x0 linker stubs
+.vfp11_veneer   0x00000454        0x0
+ .vfp11_veneer  0x00000454        0x0 linker stubs
 
-.v4_bx          0x00000864        0x0
- .v4_bx         0x00000864        0x0 linker stubs
+.v4_bx          0x00000454        0x0
+ .v4_bx         0x00000454        0x0 linker stubs
 
-.iplt           0x00000864        0x0
- .iplt          0x00000864        0x0 ./USER/gw1ns4c_it.o
+.iplt           0x00000454        0x0
+ .iplt          0x00000454        0x0 ./USER/gw1ns4c_it.o
 
-.rel.dyn        0x00000864        0x0
- .rel.iplt      0x00000864        0x0 ./USER/gw1ns4c_it.o
+.rel.dyn        0x00000454        0x0
+ .rel.iplt      0x00000454        0x0 ./USER/gw1ns4c_it.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00000864                __exidx_start = .
+                0x00000454                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000864                __exidx_end = .
-                0x00000864                __etext = .
+                0x00000454                __exidx_end = .
+                0x00000454                __etext = .
 
-.data           0x20000000      0x43c load address 0x00000864
+.data           0x20000000      0x43c load address 0x00000454
                 0x20000000                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -1366,10 +1340,10 @@ END GROUP
                 0x2000043c                . = ALIGN (0x4)
                 0x2000043c                __data_end__ = .
 
-.igot.plt       0x2000043c        0x0 load address 0x00000ca0
+.igot.plt       0x2000043c        0x0 load address 0x00000890
  .igot.plt      0x2000043c        0x0 ./USER/gw1ns4c_it.o
 
-.bss            0x2000043c       0x24 load address 0x00000ca0
+.bss            0x2000043c       0x24 load address 0x00000890
                 0x2000043c                . = ALIGN (0x4)
                 0x2000043c                __bss_start__ = .
  *(.bss*)
@@ -1403,7 +1377,7 @@ END GROUP
                 0x20003c00                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
                 0x20004000                PROVIDE (__stack = __StackTop)
                 0x00000001                ASSERT ((__StackLimit >= __HeapLimit), region RAM overflowed with stack)
-OUTPUT(cm3_1602_lcd.elf elf32-littlearm)
+OUTPUT(cm3_led.elf elf32-littlearm)
 
 .ARM.attributes
                 0x00000000       0x29
@@ -1437,37 +1411,37 @@ OUTPUT(cm3_1602_lcd.elf elf32-littlearm)
  .comment       0x00000076       0x77 ./SYSTEM/system_gw1ns4c.o
  .comment       0x00000076       0x77 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
 
-.debug_info     0x00000000     0x1c71
+.debug_info     0x00000000      0xf0f
  .debug_info    0x00000000      0x23a ./USER/gw1ns4c_it.o
- .debug_info    0x0000023a     0x117d ./USER/main.o
- .debug_info    0x000013b7      0x11c ./SYSTEM/system_gw1ns4c.o
- .debug_info    0x000014d3       0x26 ./STARTUP/startup_gw1ns4c.o
- .debug_info    0x000014f9      0x778 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+ .debug_info    0x0000023a      0x41b ./USER/main.o
+ .debug_info    0x00000655      0x11c ./SYSTEM/system_gw1ns4c.o
+ .debug_info    0x00000771       0x26 ./STARTUP/startup_gw1ns4c.o
+ .debug_info    0x00000797      0x778 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
 
-.debug_abbrev   0x00000000      0x5cf
+.debug_abbrev   0x00000000      0x571
  .debug_abbrev  0x00000000       0xc8 ./USER/gw1ns4c_it.o
- .debug_abbrev  0x000000c8      0x25c ./USER/main.o
- .debug_abbrev  0x00000324       0xa3 ./SYSTEM/system_gw1ns4c.o
- .debug_abbrev  0x000003c7       0x14 ./STARTUP/startup_gw1ns4c.o
- .debug_abbrev  0x000003db      0x1f4 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+ .debug_abbrev  0x000000c8      0x1fe ./USER/main.o
+ .debug_abbrev  0x000002c6       0xa3 ./SYSTEM/system_gw1ns4c.o
+ .debug_abbrev  0x00000369       0x14 ./STARTUP/startup_gw1ns4c.o
+ .debug_abbrev  0x0000037d      0x1f4 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
 
-.debug_aranges  0x00000000      0x1b0
+.debug_aranges  0x00000000      0x168
  .debug_aranges
                 0x00000000       0x40 ./USER/gw1ns4c_it.o
  .debug_aranges
-                0x00000040       0x78 ./USER/main.o
+                0x00000040       0x30 ./USER/main.o
  .debug_aranges
-                0x000000b8       0x20 ./SYSTEM/system_gw1ns4c.o
+                0x00000070       0x20 ./SYSTEM/system_gw1ns4c.o
  .debug_aranges
-                0x000000d8       0x20 ./STARTUP/startup_gw1ns4c.o
+                0x00000090       0x20 ./STARTUP/startup_gw1ns4c.o
  .debug_aranges
-                0x000000f8       0xb8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+                0x000000b0       0xb8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
 
-.debug_ranges   0x00000000      0x238
+.debug_ranges   0x00000000      0x108
  .debug_ranges  0x00000000       0x30 ./USER/gw1ns4c_it.o
- .debug_ranges  0x00000030      0x150 ./USER/main.o
- .debug_ranges  0x00000180       0x10 ./SYSTEM/system_gw1ns4c.o
- .debug_ranges  0x00000190       0xa8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+ .debug_ranges  0x00000030       0x20 ./USER/main.o
+ .debug_ranges  0x00000050       0x10 ./SYSTEM/system_gw1ns4c.o
+ .debug_ranges  0x00000060       0xa8 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
 
 .debug_macro    0x00000000     0x207e
  .debug_macro   0x00000000      0x100 ./USER/gw1ns4c_it.o
@@ -1495,35 +1469,35 @@ OUTPUT(cm3_1602_lcd.elf elf32-littlearm)
  .debug_macro   0x00001f4a      0x100 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
  .debug_macro   0x0000204a       0x34 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
 
-.debug_line     0x00000000     0x1add
+.debug_line     0x00000000     0x179a
  .debug_line    0x00000000      0x4c9 ./USER/gw1ns4c_it.o
- .debug_line    0x000004c9      0x882 ./USER/main.o
- .debug_line    0x00000d4b      0x484 ./SYSTEM/system_gw1ns4c.o
- .debug_line    0x000011cf       0x98 ./STARTUP/startup_gw1ns4c.o
- .debug_line    0x00001267      0x876 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+ .debug_line    0x000004c9      0x53f ./USER/main.o
+ .debug_line    0x00000a08      0x484 ./SYSTEM/system_gw1ns4c.o
+ .debug_line    0x00000e8c       0x98 ./STARTUP/startup_gw1ns4c.o
+ .debug_line    0x00000f24      0x876 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
 
-.debug_str      0x00000000     0x8e35
+.debug_str      0x00000000     0x8d7b
  .debug_str     0x00000000     0x8980 ./USER/gw1ns4c_it.o
                                0x8ae4 (size before relaxing)
- .debug_str     0x00008980      0x2b4 ./USER/main.o
-                               0x8ab2 (size before relaxing)
- .debug_str     0x00008c34       0x62 ./SYSTEM/system_gw1ns4c.o
+ .debug_str     0x00008980      0x1fa ./USER/main.o
+                               0x8a65 (size before relaxing)
+ .debug_str     0x00008b7a       0x62 ./SYSTEM/system_gw1ns4c.o
                                0x88d8 (size before relaxing)
- .debug_str     0x00008c96       0x2b ./STARTUP/startup_gw1ns4c.o
+ .debug_str     0x00008bdc       0x2b ./STARTUP/startup_gw1ns4c.o
                                  0x98 (size before relaxing)
- .debug_str     0x00008cc1      0x174 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+ .debug_str     0x00008c07      0x174 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
                                0x8b9a (size before relaxing)
 
-.debug_frame    0x00000000      0x6d4
+.debug_frame    0x00000000      0x5d0
  .debug_frame   0x00000000      0x260 ./USER/gw1ns4c_it.o
- .debug_frame   0x00000260      0x164 ./USER/main.o
- .debug_frame   0x000003c4       0x48 ./SYSTEM/system_gw1ns4c.o
- .debug_frame   0x0000040c      0x174 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
- .debug_frame   0x00000580       0x28 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-exit.o)
- .debug_frame   0x000005a8       0x5c c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-__call_atexit.o)
- .debug_frame   0x00000604       0xb0 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-lock.o)
- .debug_frame   0x000006b4       0x20 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libnosys.a(_exit.o)
+ .debug_frame   0x00000260       0x60 ./USER/main.o
+ .debug_frame   0x000002c0       0x48 ./SYSTEM/system_gw1ns4c.o
+ .debug_frame   0x00000308      0x174 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+ .debug_frame   0x0000047c       0x28 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-exit.o)
+ .debug_frame   0x000004a4       0x5c c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-__call_atexit.o)
+ .debug_frame   0x00000500       0xb0 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libg.a(lib_a-lock.o)
+ .debug_frame   0x000005b0       0x20 c:/gmd/toolchain/arm_toolchain/bin/../lib/gcc/arm-none-eabi/8.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libnosys.a(_exit.o)
 
-.debug_loc      0x00000000      0x4e7
- .debug_loc     0x00000000      0x1b0 ./USER/main.o
- .debug_loc     0x000001b0      0x337 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
+.debug_loc      0x00000000      0x34f
+ .debug_loc     0x00000000       0x18 ./USER/main.o
+ .debug_loc     0x00000018      0x337 ./PERIPHERAL/Sources/gw1ns4c_gpio.o
