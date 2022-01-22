@@ -15,6 +15,8 @@
 // O4 O5 O0-O3
 /* Includes ------------------------------------------------------------------*/
 #include "gw1ns4c.h"
+#include <stdbool.h>
+
 
 /* Declarations ------------------------------------------------------------------*/
 void LCDInit(void);
@@ -27,13 +29,14 @@ int main(void) {
 	SystemInit();	//Initializes system
 	GPIOInit();		//Initializes GPIO
 	LCDInit();		//Initializes LCD
-	LCD_PrintTest();
-	while (1) {
+	while (true) {
+		LCD_PrintTest();
+		delay_ms(600);
 	}
 }
 
 void LCD_Reset()	{
-	delay_ms(70);
+	delay_ms(100);
 	GPIO_ResetBit(GPIO0, GPIO_Pin_4); //RS to instruction mode
 
 	GPIO_ResetBit(GPIO0, GPIO_Pin_0); //IR4 is 1
@@ -41,16 +44,18 @@ void LCD_Reset()	{
 	GPIO_ResetBit(GPIO0, GPIO_Pin_2); //IR6 is 0
 	GPIO_ResetBit(GPIO0, GPIO_Pin_3); //IR7 is 0
 
+
 	GPIO_SetBit(GPIO0, GPIO_Pin_5); //Enable LCD and start reading high order nibble
 	delay_ms(6);
 	GPIO_ResetBit(GPIO0, GPIO_Pin_5); //Disable LCD to prepare next nibble
 	delay_ms(1);
 
+	//reread same data as per procedure described in manual
 	GPIO_SetBit(GPIO0, GPIO_Pin_5); //Enable LCD and start reading high order nibble
 	delay_ms(2);
 	GPIO_ResetBit(GPIO0, GPIO_Pin_5); //Disable LCD to prepare next nibble
 
-	GPIO_ResetBit(GPIO0, GPIO_Pin_0); //IR4 is 0 for 4-bit mode
+	GPIO_ResetBit(GPIO0, GPIO_Pin_0); //IR4 is 0
 	GPIO_SetBit(GPIO0, GPIO_Pin_1); //IR5 is 1
 	GPIO_ResetBit(GPIO0, GPIO_Pin_2); //IR6 is 0
 	GPIO_ResetBit(GPIO0, GPIO_Pin_3); //IR7 is 0
@@ -58,6 +63,7 @@ void LCD_Reset()	{
 	GPIO_SetBit(GPIO0, GPIO_Pin_5); //Enable LCD and start reading high order nibble
 	delay_ms(2);
 	GPIO_ResetBit(GPIO0, GPIO_Pin_5); //Disable LCD to prepare next nibble
+
 }
 
 /**
@@ -78,6 +84,8 @@ void LCD_FunctionSet() {
 	GPIO_ResetBit(GPIO0, GPIO_Pin_5); //Disable LCD to prepare next nibble
 
 	//IR0, IR1 are Don't Cares
+	GPIO_ResetBit(GPIO0, GPIO_Pin_0); //IR0 is 0
+	GPIO_ResetBit(GPIO0, GPIO_Pin_1); //IR1 is 0
 	GPIO_ResetBit(GPIO0, GPIO_Pin_2); //IR2 is 0
 	GPIO_SetBit(GPIO0, GPIO_Pin_3); //IR3 is 1
 
@@ -153,6 +161,11 @@ void LCD_EntryModeSet() {
 }
 
 void LCDInit(void) {
+	//Cycle one instruction/data transfer to avoid confusing the nibbles later on
+	GPIO_SetBit(GPIO0, GPIO_Pin_5); //Enable LCD and start reading low order nibble
+	delay_ms(1);
+	GPIO_ResetBit(GPIO0, GPIO_Pin_5); //Disable LCD
+
 	LCD_Reset();
 	LCD_FunctionSet();
 	LCD_Clear();
@@ -208,7 +221,7 @@ void LCD_Write() {
 }
 
 void LCD_PrintTest() {
-	LCD_SetDDRAM_Address();
+	//LCD_SetDDRAM_Address();
 	delay_ms(1);
 	LCD_Write();
 }
