@@ -11,7 +11,8 @@ USER/main.o: ../USER/main.c \
  C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_i2c.h \
  C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_misc.h \
  C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_syscon.h \
- C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_rtc.h
+ C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_rtc.h \
+ ../USER/lcd_hd44780.h
 
 C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\SYSTEM/gw1ns4c.h:
 
@@ -38,3 +39,5 @@ C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/
 C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_syscon.h:
 
 C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_rtc.h:
+
+../USER/lcd_hd44780.h:

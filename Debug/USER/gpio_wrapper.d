@@ -11,7 +11,8 @@ USER/gpio_wrapper.o: ../USER/gpio_wrapper.c \
  C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_i2c.h \
  C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_misc.h \
  C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_syscon.h \
- C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_rtc.h
+ C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_rtc.h \
+ ../USER/gpio_wrapper.h
 
 C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\SYSTEM/gw1ns4c.h:
 
@@ -38,3 +39,5 @@ C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/
 C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_syscon.h:
 
 C:\Users\trashcan\Documents\Gowin\MCU_Designer\cm3_1602_lcd\PERIPHERAL\Includes/gw1ns4c_rtc.h:
+
+../USER/gpio_wrapper.h:

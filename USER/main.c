@@ -16,13 +16,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "gw1ns4c.h"
 #include <stdbool.h>
+#include "lcd_hd44780.h"
 
 
 /* Declarations ------------------------------------------------------------------*/
 void LCDInit(void);
-void delay_ms(__IO uint32_t delay_ms);
 void GPIOInit(void);
 void LCD_PrintTest();
+void LCD_Clear();
 
 /* Functions ------------------------------------------------------------------*/
 int main(void) {
@@ -30,8 +31,16 @@ int main(void) {
 	GPIOInit();		//Initializes GPIO
 	LCDInit();		//Initializes LCD
 	while (true) {
-		LCD_PrintTest();
-		delay_ms(600);
+		LCD_WriteChar('Y');
+		delay_ms(100);
+		LCD_WriteChar('u');
+		delay_ms(100);
+		LCD_WriteChar('m');
+		delay_ms(100);
+		LCD_WriteChar('i');
+		delay_ms(100);
+		delay_ms(1000);
+		LCD_Clear();
 	}
 }
 
@@ -196,6 +205,7 @@ void LCD_SetDDRAM_Address() {
 	GPIO_ResetBit(GPIO0, GPIO_Pin_5); //Disable LCD
 }
 
+/*
 void LCD_Write() {
 	//Test: character 'S' ASCII = 0101 0011
 	GPIO_SetBit(GPIO0, GPIO_Pin_4); //RS to data mode
@@ -218,12 +228,12 @@ void LCD_Write() {
 	delay_ms(1);
 	GPIO_ResetBit(GPIO0, GPIO_Pin_5); //Disable LCD
 
-}
+}*/
 
 void LCD_PrintTest() {
 	//LCD_SetDDRAM_Address();
 	delay_ms(1);
-	LCD_Write();
+	LCD_WriteChar('S');
 }
 
 
@@ -242,9 +252,4 @@ void GPIOInit(void) {
 	}
 }
 
-//delay ms
-void delay_ms(__IO uint32_t delay_ms) {
-	for (delay_ms = (SystemCoreClock >> 13) * delay_ms; delay_ms != 0;
-			delay_ms--)
-		;
-}
+

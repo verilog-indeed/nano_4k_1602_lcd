@@ -4,15 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../USER/gpio_wrapper.c \
 ../USER/gw1ns4c_it.c \
+../USER/lcd_hd44780.c \
 ../USER/main.c 
 
 OBJS += \
+./USER/gpio_wrapper.o \
 ./USER/gw1ns4c_it.o \
+./USER/lcd_hd44780.o \
 ./USER/main.o 
 
 C_DEPS += \
+./USER/gpio_wrapper.d \
 ./USER/gw1ns4c_it.d \
+./USER/lcd_hd44780.d \
 ./USER/main.d 
 
 
