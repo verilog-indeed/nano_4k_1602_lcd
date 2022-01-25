@@ -88,8 +88,8 @@ void LCD_Clear() {
 
 
 /**
- * Shifts cursor without modifying text
- * rightShift: if 0, shift to the left, if 1 shift to the right
+ * Shifts cursor without modifying text.
+ * rightShift: if 0, shift to the left, if 1 shift to the right.
  * */
 void LCD_CursorShift(bool rightShift)	{
 	LCD_SetInstructionMode();
@@ -99,6 +99,7 @@ void LCD_CursorShift(bool rightShift)	{
 
 /**
  * Shift entire display without modifying text
+ * The LCD actually has two rows of 40 character slots, the shifting rotates through the 40 characters.
  * rightShift: if 0, shift to the left, if 1 shift to the right
  * */
 void LCD_DisplayShift(bool rightShift)	{
@@ -107,27 +108,80 @@ void LCD_DisplayShift(bool rightShift)	{
 	LCD_WriteByteToNibbleBus(instructionVector);
 }
 
+/**
+ * Cursor returned to origin, the contents of the LCD are not modified.
+ * */
+void LCD_ReturnHome()	{
+	LCD_SetInstructionMode();
+	int instructionVector = 0b00000010;
+	LCD_WriteByteToNibbleBus(instructionVector);
+}
 
+/**
+ * Set register select high to tap into the LCD Data Register (DR)
+ * */
 void LCD_SetDataMode()	{
 	writeBit(LCD_REGISTER_SEL, true);
 }
 
+/**
+ * Set register select low to tap into the LCD Instruction Register (IR)
+ * */
 void LCD_SetInstructionMode()	{
 	writeBit(LCD_REGISTER_SEL, false);
 }
 
+/**
+ * Momentarily blinks the Enable to high to let data flow into LCD, then disables it right afterwards
+ * */
 void LCD_NibbleTransaction()	{
 	writeBit(LCD_ENABLE, true); //Enable LCD and start receiving nibble
 	delay_ms(5);
 	writeBit(LCD_ENABLE, false); //Disable LCD
 }
 
-void LCD_SetDisplayRAMAddress(int address)	{
+/**
+ * Allows you to create a custom character using an array of 8 bytes where each bit corresponds to the
+ * appropriate row/column being turned on or off.
+ * Create your custom characters first and foremost right after init and before printing anything on the LCD.
+ * If you fill the bottom row, the cursor won't show, keep that in mind.
+ * */
+//TODO: Currently assumes 5x8 mode, add 5x10 support later?
+void LCD_CreateCustomChar(unsigned int customCharIndex, int* glyphData)	{
+	if (customCharIndex > 7) return;
+	LCD_SetGeneratorRAMAddress(customCharIndex << 3);
+	for (int i = 0; i < 8; i++) {
+		//The upper 3-bits are don't cares btw
+		LCD_WriteChar(*(glyphData + i));
+	}
+	//Cannot read old state before this operation at the moment, so we will always reset to the beginning
+	LCD_ReturnHome();
+}
+
+/**
+ * Sets the address for character generator RAM, the next data write will be interpreted as CG data
+ * Each custom character bitmap occupies 7 addresses (5x8 mode), or 10 addresses (5x10 mode, not a typo)
+ * followed by a row reserved for the cursor to show.
+ * */
+void LCD_SetGeneratorRAMAddress(unsigned int address)	{
+	LCD_SetInstructionMode();
+	int instructionVector = 0b01000000 | (address & 0x3F);
+	LCD_WriteByteToNibbleBus(instructionVector);
+}
+
+/**
+ * Sets the address for display RAM, the next data write will be interpreted as DD data
+ * */
+void LCD_SetDisplayRAMAddress(unsigned int address)	{
 	LCD_SetInstructionMode();
 	int instructionVector = 0b10000000 | (address & 0x7F);
 	LCD_WriteByteToNibbleBus(instructionVector);
 }
 
+/**
+ * Sets cursor to the beginning of Line 0 or Line 1
+ * TODO: Support for 4-Line displays?
+ * */
 void LCD_LineSelect(int line)	{
 	LCD_SetDisplayRAMAddress(line == 0? 0x0: 0x40);
 }
@@ -150,7 +204,24 @@ void LCD_Init() {
 	LCD_EntryModeSet(true, false);
 }
 
+/**
+ * Writes a string of characters into the LCD by chaining WriteChar.
+ * You can use snprintf() to prepare a formatted string buffer to use with this function.
+ * */
+void LCD_WriteString(char *string) {
+	for (char *p = string; *p != '\0'; p++)	{
+		LCD_WriteChar(*p);
+	}
+}
 
+/**
+ * Writes a character into the LCD at the current position set by the Address Counter.
+ * The alphanumerics are identical to ASCII, codes 0x00 to 0x07 print the custom characters
+ * stored in the CGRAM, but the remaining range depends on particular Hitachi MCU model.
+ *
+ * The byte sent will either be stored at the Display RAM (DDRAM) or the Character Generator
+ * RAM (CGRAM) depending on the previous RAM address setting (DDRAM/CGRAM Address Set instructions).
+ * */
 void LCD_WriteChar(char c) {
 	LCD_SetDataMode();
 	int dataVector = c;
