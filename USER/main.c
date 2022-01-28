@@ -1,6 +1,9 @@
-// RS E D4-D7
-// O4 O5 O0-O3
-/* Includes ------------------------------------------------------------------*/
+/*
+ * Example code for showing the LCD library in action
+ * Prints a counter of how many days there have been without school, if days last 300ms that is.
+ *
+ */
+
 #include "gw1ns4c.h"
 #include <stdio.h>
 #include <stdbool.h>
@@ -33,19 +36,19 @@ int sadGlyph[8] = {0b10001,
 int main(void) {
 	SystemInit();	//Initializes system
 	LCD_Init();		//Initializes LCD
-	LCD_CreateCustomChar(0, smileyGlyph);
+	LCD_CreateCustomChar(0, smileyGlyph);	//send custom character data to LCD to make a smiley at index 0
 	LCD_WriteString("No School Day: ");
-	LCD_WriteChar(0);
-	int counter = 0xA0;
+	LCD_WriteChar(0);	//Write the aforementioned smiley character
+	int counter = 0;
 	while (true) {
-		LCD_LineSelect(1);
-		snprintf(message, 16, "%s #%d", "  ", counter);
+		LCD_LineSelect(1);	//Cursor back to beginning of second line
+		snprintf(message, 16, "%s #%d", "  ", counter);	//print empty space followed by count number and the hash sign
 		LCD_WriteString(message);
-		for (int i = 0; i < 40; i++)	{
+		for (int i = 0; i < 40; i++)	{ //shift entire display to the right until it wraps back around where it started
 			LCD_DisplayShift(true);
-			delay_ms(1);
+			LCD_DelayMS(1);
 		}
-		delay_ms(300);
+		LCD_DelayMS(300);
 		counter++;
 	}
 }

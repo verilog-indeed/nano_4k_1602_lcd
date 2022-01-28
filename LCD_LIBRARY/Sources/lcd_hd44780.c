@@ -5,8 +5,6 @@
  *      Author: Dhia Zerrari
  */
 
-// RS E D4-D7
-// O4 O5 O0-O3
 /* Includes ------------------------------------------------------------------*/
 #include "gw1ns4c.h"
 #include "lcd_hd44780.h"
@@ -59,17 +57,17 @@ void LCD_GPIOInit()	{
  * This reset should be followed by the rest of the init procedure (function set, entry mode etc)
  * */
 void LCD_Reset()	{
-	delay_ms(100); //wait for LCD power on if cold boot
+	LCD_DelayMS(100); //wait for LCD power on if cold boot
 	LCD_SetInstructionMode();
 
 	int instructionVector = 0b0011;
 	writeVector(LCD_4BIT_DATA, instructionVector);
 	LCD_NibbleTransaction();
-	delay_ms(1);
+	LCD_DelayMS(1);
 
 	//reread same data (0011) as per procedure described in manual
 	LCD_NibbleTransaction();
-	delay_ms(1);
+	LCD_DelayMS(1);
 	LCD_NibbleTransaction();
 
 	instructionVector = 0b0010;
@@ -136,7 +134,7 @@ void LCD_SetInstructionMode()	{
  * */
 void LCD_NibbleTransaction()	{
 	writeBit(LCD_ENABLE, true); //Enable LCD and start receiving nibble
-	delay_ms(5);
+	LCD_DelayMS(5);
 	writeBit(LCD_ENABLE, false); //Disable LCD
 }
 
@@ -160,8 +158,8 @@ void LCD_CreateCustomChar(unsigned int customCharIndex, int* glyphData)	{
 
 /**
  * Sets the address for character generator RAM, the next data write will be interpreted as CG data
- * Each custom character bitmap occupies 7 addresses (5x8 mode), or 10 addresses (5x10 mode, not a typo)
- * followed by a row reserved for the cursor to show.
+ * Each custom character bitmap occupies 8 addresses (5x8 mode), or 11 addresses (5x10 mode, not a typo)
+ * The last row is shared with the cursor if it is enabled.
  * */
 void LCD_SetGeneratorRAMAddress(unsigned int address)	{
 	LCD_SetInstructionMode();
@@ -186,12 +184,18 @@ void LCD_LineSelect(int line)	{
 	LCD_SetDisplayRAMAddress(line == 0? 0x0: 0x40);
 }
 
+/**
+ * Activate LCD printout on-screen, enable/disable cursor and cursor blink
+ * */
 void LCD_DisplayEnable(bool displayON, bool cursorON, bool cursorBlinks) {
 	LCD_SetInstructionMode();
 	int instructionVector = 0b00001000 | (displayON << 2) | (cursorON << 1) | (cursorBlinks);
 	LCD_WriteByteToNibbleBus(instructionVector);
 }
 
+/**
+ * Example of initializing LCD in 4-bit mode
+ * */
 void LCD_Init() {
 	//Cycle one instruction/data transfer to avoid confusing the nibbles later on
 	LCD_NibbleTransaction();
@@ -240,8 +244,10 @@ void LCD_WriteByteToNibbleBus(int byte)	{
 	LCD_NibbleTransaction(); //send B3-B0 through D7-D4
 }
 
-//delay ms
-void delay_ms(__IO uint32_t delay_ms) {
+/**
+ * Waste CPU cycles for delay, weird name to avoid possible mixups
+ * */
+void LCD_DelayMS(__IO uint32_t delay_ms) {
 	for (delay_ms = (SystemCoreClock >> 13) * delay_ms; delay_ms != 0;
 			delay_ms--)
 		;
