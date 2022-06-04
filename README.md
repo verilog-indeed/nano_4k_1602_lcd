@@ -4,7 +4,7 @@ for Gowin FPGAs with integrated ARM Cortex M3 Microcontrollers such
 as the GW1NSR-4C and a specific focus on the Sipeed Tang Nano 4K board.
 This repository contains an example Gowin MCU Designer project using the library to show off the LCD's features.
 
-If you've got any question contact me at sfmdude0@gmail.com
+If you've got any question reach me out on Twitter @verilog_indeed 
 # How to use with the Sipeed Tang Nano 4K:
 1. First, you'll need an FPGA design that sets the CPU in motion, you
    can use the design provided by Gowin that I slightly modified.
