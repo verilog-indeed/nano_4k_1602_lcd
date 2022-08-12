@@ -23,9 +23,9 @@ int smileyGlyph[8] = {0b00000,
 					  0b00000,
 					  0b00000};
 
-int sadGlyph[8] = {0b10001,
-		  	  	   0b00000,
-				   0b00100,
+int sadGlyph[8] = {0b00000,
+		  	  	   0b01010,
+				   0b00000,
 				   0b00000,
 				   0b01110,
 				   0b10001,
@@ -46,11 +46,12 @@ int main(void) {
 		LCD_WriteString(message);
 		for (int i = 0; i < 40; i++)	{ //shift entire display to the right until it wraps back around where it started
 			LCD_DisplayShift(true);
-			LCD_DelayMS(1);
+			LCD_DelayMS(10);
 		}
-		LCD_DelayMS(300);
+		LCD_DelayMS(1000);
 		counter++;
 	}
 }
+
 
 
