@@ -52,7 +52,7 @@ void LCD_WriteChar(char c);
 void LCD_WriteString(char *string);
 void LCD_WriteByteToNibbleBus(int byte);
 void LCD_GPIOInit();
-void LCD_DelayMS(__IO uint32_t delay_ms);
+void LCD_DelayMS(volatile uint32_t delay_ms);
 
 
 #endif /* __LCD_HD44780_H_ */

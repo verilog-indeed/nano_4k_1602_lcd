@@ -9,6 +9,12 @@
 #include "gw1ns4c.h"
 #include "lcd_hd44780.h"
 #include "gpio_wrapper.h"
+/*----------------------------------------------------------------------------*/
+
+/* Definitions*/
+#define SYSCLK_MILLIS_RATIO (SystemCoreClock / 1000) //CPU cycles per millisecond
+#define DELAY_RATIO (SYSCLK_MILLIS_RATIO / 16) //asm delay loop takes about 16 clock cycles on average
+/*----------------------------------------------------------------------------*/
 
 /**
  * Performs the LCD function set
@@ -245,11 +251,17 @@ void LCD_WriteByteToNibbleBus(int byte)	{
 }
 
 /**
- * Waste CPU cycles for delay, weird name to avoid possible mixups
- * */
-void LCD_DelayMS(__IO uint32_t delay_ms) {
-	for (delay_ms = (SystemCoreClock >> 13) * delay_ms; delay_ms != 0;
-			delay_ms--)
-		;
+ * Waste CPU cycles for delay, it is NOT precise nor accurate so you should consider using hardware timers for precision
+ * Prefixed name to avoid possible conflicts
+ **/
+void LCD_DelayMS(volatile uint32_t milliseconds) {
+	//delay ratio = CPU cycles per millisecond / cycles needed to complete one asm loop (approx 16??)
+	uint32_t delayCycles = (milliseconds * DELAY_RATIO);
+
+	asm volatile (
+		"lcd_delay_loop_%=: subs %[delayReg], %[delayReg], #1\n\t" //sub does not modify flags, need subs
+		"bne lcd_delay_loop_%=\n\t"
+		: [delayReg] "+l"(delayCycles)
+	);
 }
 
